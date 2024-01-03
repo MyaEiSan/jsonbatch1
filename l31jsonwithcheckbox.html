@@ -20,14 +20,14 @@
                 padding: 10px;
             }
 
-            .container label{
+            /* .container label{
                 display: block;
             }
 
             .container .form-control{
                 width: 100%;
                 margin-bottom: 10px;
-            }
+            } */
         </style>
     </head>
     <body>
@@ -49,15 +49,50 @@
             // console.log(dataobjs);
             // console.log(dataobjs.colors);
 
+            var x = 0;
+
             for(let key in dataobjs.colors){
+                
                 // console.log(key);
                 // console.log(dataobjs.colors[key]);
+
+                x++;
 
                 // var status = dataobjs.colors[key] ? 'checked': '';
                 var status = !dataobjs.colors[key]?'': 'checked';
 
-                var lis = `<li><input type="checkbox" id="" value="" ${status} /><label>${key}</label></li>`;
+                var lis = `<li><input type="checkbox" id="${x}" value="${key}" ${status} /><label for="${x}">${key}</label></li>`;
                 getul.innerHTML += lis;
+            }
+
+            clickeven();
+
+            function clickeven(){
+                var getcheckeds = document.querySelectorAll('.list-group input[type="checkbox"]');
+                console.log(getcheckeds);
+
+                for(var idx in getcheckeds){
+                    // console.log(getchecked[idx]);
+
+                    getcheckeds[idx].onchange = updatedata;
+                }
+            }
+
+            function updatedata(e){
+                // var getinputval = e.target.value;
+                var getinputval = this.value;
+                // console.log(getinputval);
+
+                var getinputstatus = this.checked;
+                // console.log(getinputstatus);
+                // console.log(getinputval,getinputstatus);
+                console.log(dataobjs);
+
+                dataobjs.colors[getinputval] = getinputstatus;
+
+                console.log(dataobjs);
+
+
             }
             
         </script>
