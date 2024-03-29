@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>async and await</title>
+        <style type="text/css">
+          
+        </style>
+    </head>
+    <body>
+
+        
+        <script type="text/javascript">
+
+            // =>Synchronous
+            const url = `https://jsonplaceholder.typicode.com/users`;
+
+            fetch(url)
+            .then(response=>response.json())
+            .then(data=>{
+                console.log(data);
+            })
+            .catch(err=>console.log(err));
+
+            // =>Asynchronous (async & await)
+            async function getusers(){
+                await fetch(url)
+                .then(response=>response.json())
+                .then(data=>{
+                    console.log(data);
+                })
+                .catch(err=>console.log(err));
+            }
+
+            getusers();
+
+
+            // =>Asynchronous (async & await)
+            async function allusers(){
+
+                // await response for the fetch call (step 1 = Request)
+                const response = await fetch(url); 
+
+                // proceed if resolved (step 2 = Promise)
+                const data = await response.json();
+
+                return data; 
+            }
+
+            allusers()
+            .then(response=>console.log(response));
+        
+        </script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Synchronous</title>
+        <style type="text/css">
+          
+        </style>
+    </head>
+    <body>
+
+        
+        <script type="text/javascript">
+
+            let x = 1; 
+            let y = 2; 
+
+            console.log("Synchronous");
+            console.log(x);
+            console.log(y);
+
+            const funone = ()=>{
+                for(let i = 0; i < 3000; i++){
+                    console.log('please wait');
+                }
+            }
+
+            const funtwo = ()=>{
+                console.log('i am fun two');
+            }
+            funone();
+            funtwo();
+           
+        </script>
+    </body>
+</html>

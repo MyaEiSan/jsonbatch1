@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Asynchronous</title>
+        <style type="text/css">
+          
+        </style>
+    </head>
+    <body>
+
+        
+        <script type="text/javascript">
+
+        //  =>Synchronous 
+
+        let x = 1; 
+        let y = 2; 
+
+        // * setTimeout is an asynchronous function 
+        setTimeout(()=>{
+            // console.log('Asychronous');
+            console.log('Asychronous',x);//Asychronous 1000
+        },3000);
+
+        x = 1000;
+
+        console.log('Synchronous');
+        console.log(x);
+        console.log(y);
+
+
+           
+        </script>
+    </body>
+</html>
