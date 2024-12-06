@@ -136,12 +136,12 @@
 
             });
 
-            let getweatherbycityname = async function(city){
+            async function getweatherbycityname(city){
 
                 let url = `${weatherurl}&q=${city}`;
                 // console.log(url);
 
-                let response = await fetch(url); 
+                let response = await axios.get(url); 
                 // console.log(response);
 
                 if(response.status !== 200){
@@ -149,14 +149,14 @@
                     return;
                 }
 
-                let data = await response.json(); 
+                let data = await response.data; 
 
                 console.log(data); //{coord: {…}, weather: Array(1), base: 'stations', main: {…}, visibility: 7000, …}
 
                 return data; 
             }
 
-            let weatherforcity = async (city)=>{
+            async function weatherforcity(city){
                 // console.log(city);
 
                 let response = await getweatherbycityname(city); 
@@ -172,10 +172,10 @@
 
             weatherforcity("yangon");
 
-            let getforecastbycityid = async(cityid)=>{
+            async function getforecastbycityid(cityid){
                 let url = `${forecasturl}&id=`+cityid;
-                let response = await fetch(url);
-                let data = await response.json();
+                let response = await axios.get(url);
+                let data = await response.data;
                 // console.log('getforecastbycityid',data);
 
                 let forecastlists = data.list; 
@@ -205,7 +205,7 @@
                 return comingdays;
             }
 
-            let getweathertodom = (data)=>{
+            function getweathertodom(data){
 
                 // console.log(data); 
 
@@ -218,7 +218,7 @@
                 gettemperature.textContent = data.main.temp > 0 ? `+${data.main.temp}` : `-${data.main.temp}`;
             }
 
-            let getforecasttodom = (forecasts)=>{
+            function getforecasttodom(forecasts){
                 // console.log(forecasts);
 
                 getuiforecast.innerHTML = "";
@@ -226,18 +226,18 @@
                 forecasts.forEach(forecast=>{
                     // console.log(forecast);
 
-                    // console.log('ts', Date.now()); 
-                    // console.log('dt', forecast.dt);
+                    // console.log('dt', forecast.dt_txt);
 
+                    const daynames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+                    const getday = new Date(forecast.dt_txt).getDay();
+                    // console.log(getday);
 
-                    // 1 Day = 86,400 seconds 
-                    let dayname = dayofweek(forecast.dt * 1000);
 
                     let temperature = forecast.main.temp > 0 ? `+${Math.round(forecast.main.temp)}` : `-${Math.round(forecast.main.temp)}`;
 
                     let html = `<div>
                                     <img src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="icon" />
-                                    <h3 class="otherday">${dayname}</h3>
+                                    <h3 class="otherday">${daynames[getday]}</h3>
                                     <p class="temperature"><span class="othertemdata">${temperature}</span> &deg;C</p>
                                 </div>`;
 
